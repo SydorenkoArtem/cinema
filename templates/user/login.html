@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+{% block doctitle %}Login | {{ block.super }}{% endblock %}
+{% block content %}
+ <form method="post">
+ {% csrf_token %}
+     {{ form.as_p }}
+     <div class="justify-content-center">
+     <button type="submit" class="btn btn-outline-success me-2">Login</button>
+    <a href="#" class="btn btn-outline-secondary">Cancel</a>
+    </div>
+ </form>
+{% endblock %}
