@@ -1,6 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
-from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView
 
@@ -32,7 +31,3 @@ class UserLogoutView(LogoutView):
     """User logout view implementation"""
 
     pass
-
-
-def index(request):
-    return HttpResponse("It's index page!!")

@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% block doctitle %}Film | {{ block.super }}{% endblock %}
+{% block content %}
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for schedule in object_list %}
+      <div class="col">
+  <div class="card h-100">
+  {% load static %}
+    <div class="card-body">
+      <h5 class="card-title">Session: {{ schedule }}</h5>
+        <h6 class="card-text">{{ schedule.film }}</h6>
+        <p class="card-text">Hall: {{ schedule.hall }}</p>
+      <p class="card-text">Start time: {{ schedule.start_time }}</p>
+        <p class="card-text">Price: {{ schedule.price }} UAH</p>
+    </div>
+      <div class="card-footer">
+          <a href="{% url "schedule:ticket" %}" class="btn mt-1 m-2" style="background-color: gray">Buy ticket</a>
+
+      </div>
+  </div>
+</div>
+    {% endfor %}
+  </div>
+{% endblock %}
+

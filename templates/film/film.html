@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+{% block doctitle %}Film | {{ block.super }}{% endblock %}
+{% block content %}
+  <div class="row row-cols-2 row-cols-md-3 g-4">
+    {% for film in object_list %}
+      <div class="col">
+  <div class="card h-100">
+  {% load static %}
+    <img src="{{ film.pic.url }}" class="card-img-top" alt="{{ film.slug }}">
+    <div class="card-body">
+      <h5 class="card-title">{{ film }}</h5>
+      <p class="card-text">{{ film.description|truncatewords:"300" }}</p>
+    </div>
+    <div style="background-color: #cacaca" class="card-footer">
+      <small class="d-flex text-muted">{{ film.genre }}</small>
+      <div class="d-flex">
+          <a href="{% url "film:detail" slug=film.slug %}" class="btn mt-1 m-2" style="background-color: gray">View Details</a>
+          <a href="{% url "schedule:list" %}" class="btn mt-1 m-2" style="background-color: gray">Select a session</a>
+      </div>
+    </div>
+  </div>
+</div>
+    {% endfor %}
+  </div>
+{% endblock %}
+
