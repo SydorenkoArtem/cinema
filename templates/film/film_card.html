@@ -4,8 +4,6 @@
     <a class="btn btn-outline-dark" href="{%  url 'film:list' %}">&#x2190;Back to films</a>
 <div class="row row-cols-1" style="padding-top: 10px; padding: 0px 0px 25px 356px;">
 <div class="col" style="max-width: 50%">
-    <div class="box-element">
-      </div>
   <div class="card h-100">
   {% load static %}
   <div class="card h-100">
@@ -15,12 +13,10 @@
       <h2 class="card-title">{{ film }}</h2>
         <p class="card-title">Description:</p>
         <p class="card-text">{{ film.description|truncatewords:"300" }}</p>
+        <small class="d-flex text-muted">{{ film.genre }}</small>
     </div>
     <div class="card-footer">
-      <small class="d-flex text-muted">{{ film.genre }}</small>
-      <div class="box-element">
           <a href="{% url "schedule:list" %}" class="btn btn-outline-dark">Select a session</a>
-      </div>
     </div>
   </div>
 </div>

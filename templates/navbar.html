@@ -8,11 +8,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li><a href="{%  url "film:list" %}" class="nav-link">Films</a></li>
-          <li><a href="{%  url "schedule:list" %}" class="nav-link">Schedule</a></li>
+          <li><a href="{%  url "schedule:list" %}" class="nav-link">Schedule today</a></li>
       </ul>
       <div class="d-flex">
         {% if request.user.is_authenticated %}
           {% if request.user.is_staff %}
+              <a href="{% url "schedule:hall" %}" class="nav-link">Create hall</a>
+              <a href="{% url "schedule:create" %}" class="nav-link">Create schedule</a>
             <a href="{% url "admin:index" %}" class="nav-link">Admin</a>
             {% else %}
           {% endif %}

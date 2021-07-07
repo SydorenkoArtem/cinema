@@ -6,6 +6,7 @@
       <div class="col">
   <div class="card h-100">
   {% load static %}
+      <form method="get">
     <div class="card-body">
       <h5 class="card-title">Session: {{ schedule }}</h5>
         <h6 class="card-text">{{ schedule.film }}</h6>
@@ -14,9 +15,10 @@
         <p class="card-text">Price: {{ schedule.price }} UAH</p>
     </div>
       <div class="card-footer">
-          <a href="{% url "schedule:ticket" %}" class="btn mt-1 m-2" style="background-color: gray">Buy ticket</a>
-
+{#          <input type="hidden" name="schedule_id" value="{{ schedule.id }}">#}
+          <a href="{% url "schedule:ticket" %}" class="btn mt-1 m-2" style="background-color: #808080">Buy ticket</a>
       </div>
+      </form>
   </div>
 </div>
     {% endfor %}
