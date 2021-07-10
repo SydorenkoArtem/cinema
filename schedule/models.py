@@ -46,6 +46,8 @@ class Ticket(models.Model):
     customer = models.ForeignKey("auth.User", on_delete=models.CASCADE)
 
     def get_total(self):
+        """Get total for ticket"""
+
         total = self.schedule.price * self.quantity
         return total
 
@@ -54,7 +56,7 @@ class Ticket(models.Model):
         return reverse_lazy("film:list")
 
     def save(self, *args, **kwargs):
-        price = Schedule.objects.get(id=self.schedule_id).price
+        """Save total in ticket and save profile after minus total ticket"""
         self.customer.profile.balance -= self.get_total()
         self.customer.profile.save()
         self.total = self.get_total()

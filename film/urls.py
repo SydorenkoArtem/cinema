@@ -1,9 +1,3 @@
-"""
-Store Application URLs Configuration
-====================================
-
-"""
-
 from django.urls import path
 
 from film.views import FilmCreateView, FilmDetailView, FilmUpdateView, FilmDeleteView, FilmListView

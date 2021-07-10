@@ -1,9 +1,3 @@
-"""
-Store Application Administration
-================================
-
-"""
-
 from django.contrib import admin
 
 from film.models import Genre, Film

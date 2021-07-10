@@ -14,6 +14,9 @@
       <p class="card-text">Start time: {{ schedule.start_time }}</p>
         <p class="card-text">Price: {{ schedule.price }} UAH</p>
     </div>
+           <div class="text-end">
+        Free places: <span class="badge  bg-secondary">{{ schedule.hall.place}}</span>
+      </div>
       <div class="card-footer">
 {#          <input type="hidden" name="schedule_id" value="{{ schedule.id }}">#}
           <a href="{% url "schedule:ticket" %}" class="btn mt-1 m-2" style="background-color: #808080">Buy ticket</a>
