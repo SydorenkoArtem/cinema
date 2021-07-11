@@ -16,7 +16,14 @@
         <small class="d-flex text-muted">{{ film.genre }}</small>
     </div>
     <div class="card-footer">
+        {% if request.user.is_staff %}
+        <a href="{% url "film:update" slug=film.slug %}" class="btn btn-warning">Update</a>
           <a href="{% url "schedule:list" %}" class="btn btn-outline-dark">Select a session</a>
+                <a href="{% url "film:delete" slug=film.slug %}" class="btn btn-danger">Delete</a>
+        {% else %}
+         <a href="{% url "schedule:list" %}" class="btn btn-outline-dark">Select a session</a>
+        {% endif %}
+    </div>
     </div>
   </div>
 </div>

@@ -1,3 +1,5 @@
+import datetime
+
 from django import forms
 from django.core.exceptions import ValidationError
 
@@ -7,6 +9,10 @@ from schedule.services import get_free_places_in_hall
 
 class TicketForm(forms.ModelForm):
     """Ticket form implementation"""
+
+    def __init__(self, *args, **kwargs):
+        super(TicketForm, self).__init__(*args, **kwargs)
+        self.fields['schedule'].queryset = Schedule.objects.filter(date_show=datetime.datetime.today()).filter(start_time__gte=datetime.datetime.now())
 
     class Meta:
         model = Ticket
@@ -20,14 +26,22 @@ class TicketForm(forms.ModelForm):
 
         if quantity > free_places:
             raise ValidationError(f"This quantity is not in stock {free_places}")
+        if quantity <= 0:
+            raise ValidationError("You have selected the wrong number of tickets. Enter a quantity from 1")
 
 
 class ScheduleForm(forms.ModelForm):
     """Schedule form implementation"""
+    start_date = forms.DateField(widget=forms.SelectDateWidget())
+    end_date = forms.DateField(widget=forms.SelectDateWidget())
+    start_time = forms.TimeField(widget=forms.TimeInput(attrs={'placeholder': 'HH:MM:SS'}),
+                                 error_messages={'required': "This field is required."})
+    end_time = forms.TimeField(widget=forms.TimeInput(attrs={'placeholder': 'HH:MM:SS'}),
+                               error_messages={'required': "This field is required."})
 
     class Meta:
         model = Schedule
-        exclude = ["date_show"]
+        exclude = ['date_show']
 
     def clean(self):
         super(ScheduleForm, self).clean()
@@ -43,6 +57,8 @@ class ScheduleForm(forms.ModelForm):
                     schedule.start_time <= end_time <= schedule.end_time and \
                     schedule.start_date <= end_date <= schedule.end_date:
                 raise ValidationError("This schedule book yet. Choose other time and date")
+            if start_date > end_date:
+                raise ValidationError("you have chosen the wrong dates")
 
 
 class HallForm(forms.ModelForm):
@@ -51,3 +67,4 @@ class HallForm(forms.ModelForm):
     class Meta:
         model = Hall
         fields = '__all__'
+

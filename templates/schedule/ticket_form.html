@@ -1,21 +1,10 @@
 {% extends 'index.html' %}
 {% block content %}
-{#<form method="post" action="{% url 'schedule:ticket' %}">#}
-{#    {% csrf_token %}#}
-{#    {{ form.as_p }}#}
-{#    <input type="submit" value="Create">#}
-{#</form>#}
       <table class="table">
           <tr>
               <th><h5><strong>Ticket:</strong></h5></th>
           </tr>
       </table>
-     <div class="box-element">
-          <div class="cart-row">
-              <div style="flex: 1"><strong>Film: {{ form.film}}</strong></div>
-              <div style="flex: 1"><strong>Session: {{ schedule }}</strong></div>
-              <div style="flex: 1"><strong>Price:</strong></div>
-          </div>
       <form method="post" class="row row-cols-1">
                 {% csrf_token %}
           <div class="cart-row">

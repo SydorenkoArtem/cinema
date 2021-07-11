@@ -7,7 +7,7 @@ from film.models import Film
 class Hall(models.Model):
     """Hall model implementation"""
 
-    hall = models.CharField(max_length=255)
+    hall = models.CharField(unique=True, max_length=255)
     place = models.IntegerField(default=60)
 
     def __str__(self):
@@ -34,7 +34,16 @@ class Schedule(models.Model):
     def __str__(self):
         """Return a string version of an instance"""
 
-        return f"{self.date_show} ({self.start_time})"
+        return f" {self.film} {self.date_show} ({self.start_time})"
+
+    def get_free_places_in_hall(self):
+        """Get Free places in schedule"""
+        schedule_tickets = Ticket.objects.filter(schedule=self.id)
+        place_count = 0
+        for ticket in schedule_tickets:
+            place_count += ticket.quantity
+        free_places = self.hall.place - place_count
+        return free_places
 
 
 class Ticket(models.Model):

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from schedule.views import ScheduleListView, TicketCreateView, ScheduleCreateView, HallCreateView
+from schedule.views import ScheduleListView, TicketCreateView, ScheduleCreateView, HallCreateView, TicketUserView
 
 app_name = "schedule"
 urlpatterns = [
@@ -8,4 +8,5 @@ urlpatterns = [
     path('ticket/', TicketCreateView.as_view(), name='ticket'),
     path('create/', ScheduleCreateView.as_view(), name='create'),
     path('create/hall/', HallCreateView.as_view(), name='hall'),
+    path('mytickets/', TicketUserView.as_view(), name='my_tickets'),
 ]

@@ -3,8 +3,7 @@
 {% block content %}
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" class="btn btn-primary col-1" value="Update">
+    <input type="submit" class="btn btn-primary col-1" value="Delete">
     <a href="{% url "film:list" %}" class="col-1 btn btn-secondary">Cancel</a>
   </form>
 {% endblock %}

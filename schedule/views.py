@@ -1,7 +1,10 @@
 import datetime
 
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import ValidationError
+from django.http import HttpResponseRedirect, request
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView
 
 from schedule.forms import TicketForm, ScheduleForm, HallForm
@@ -15,24 +18,10 @@ class ScheduleListView(ListView):
     model = Schedule
     template_name = "schedule/schedule_list.html"
 
-    # def post(self, request, *args, **kwargs):
-    #     """Handle POST request"""
-    #
-    #     schedule_id = request.POST.get("schedule_id")
-    #
-    #     customer = request.user
-    #     ticket = Ticket.objects.create(customer=customer)
-    #
-    #     entity = ticket.entities.get(schedule_id=schedule_id)
-    #
-    #     entity.save()
-    #
-    #     return super(ScheduleListView, self).post(request, *args, **kwargs)
-
     def get_queryset(self):
         """Return a queryset for a list view"""
 
-        queryset = Schedule.objects.filter(date_show=datetime.datetime.today())
+        queryset = Schedule.objects.filter(date_show=datetime.datetime.today()).filter(start_time__gte=datetime.datetime.now())
 
         return queryset
 
@@ -45,31 +34,13 @@ class ScheduleCreateView(CreateView):
     form_class = ScheduleForm
     success_url = "film:list"
 
-    # def form_valid(self, form):
-    #     if form.is_valid():
-    #         get_id = Schedule.objects.all()
-            # for i in get_id:
-            #     i.
-
-        #     obj = Schedule()
-        #     obj.start_date = form.cleaned_data['start_date']
-        #     obj.end_date = form.cleaned_data['end_date']
-        #     obj.date_show = obj.start_date
-        #     day_count = (obj.end_date - obj.start_date).days
-        #     for date_show in range(day_count + 1):
-        #         obj.save()
-        #         obj.date_show += datetime.timedelta(days=1)
-        #         obj.id += 1
-        #
-        # return super(ScheduleCreateView, self).form_valid(form)
-
     def form_valid(self, form):
         if form.is_valid():
             start_date = form.cleaned_data['start_date']
             end_date = form.cleaned_data['end_date']
             date_show = start_date
             day_count = (end_date - start_date).days
-            for i in range(1):
+            for i in range(day_count + 1):
                 obj = Schedule()
                 obj.start_date = start_date
                 obj.end_date = end_date
@@ -78,12 +49,10 @@ class ScheduleCreateView(CreateView):
                 obj.hall = form.cleaned_data['hall']
                 obj.film = form.cleaned_data['film']
                 obj.price = form.cleaned_data['price']
-                obj.date_show = obj.start_date
-                for a in range(day_count):
-                    obj.save()
-                    obj.date_show += datetime.timedelta(days=1)
-
-        return super(ScheduleCreateView, self).form_valid(form)
+                obj.date_show = date_show
+                obj.save()
+                date_show += datetime.timedelta(days=1)
+        return redirect('film:list')
 
 
 class HallCreateView(CreateView):
@@ -109,5 +78,24 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
             balance = UserProfile.objects.get(user=form.instance.customer).balance
             total = form.instance.quantity * form.instance.schedule.price
             if total > balance:
-                raise ValidationError(f"You don`t have that much money. You have only {balance}")
-            return super(TicketCreateView, self).form_valid(form)
+                redirect_url = reverse_lazy("schedule:ticket")
+                return HttpResponseRedirect(redirect_url)
+        return super(TicketCreateView, self).form_valid(form)
+
+
+class TicketUserView(LoginRequiredMixin, ListView):
+    """Ticket of user view implementation"""
+
+    model = Ticket
+    http_method_names = ['get']
+    template_name = "schedule/ticket_user.html"
+
+    def get_queryset(self):
+        queryset = super(TicketUserView, self).get_queryset()
+
+        return queryset.filter(customer=self.request.user)
+
+
+
+
+

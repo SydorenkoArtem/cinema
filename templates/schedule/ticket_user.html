@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+{% block doctitle %}Orders | {{ block.super }}{% endblock %}
+{% block content %}
+    <table class="table">
+          <tr>
+              <th><h5><strong>My Tickets:</strong></h5></th>
+          </tr>
+      </table>
+    <div class="box-element">
+          <div class="cart-row">
+              <div style="flex: 1"><strong>Total</strong></div>
+              <div style="flex: 2"><strong>Schedule</strong></div>
+          </div>
+  <div class="row">
+    <div class="col">
+      <div class="list-group">
+        {% for object in object_list %}
+          <div class="cart-row">
+            <div style="flex: 1">{{ object.total }}</div>
+            <div style="flex: 2">{{ object.schedule }}</div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

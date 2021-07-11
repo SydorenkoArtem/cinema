@@ -85,6 +85,9 @@ DATABASES = {
         "HOST": "localhost",
         "PORT": "5432",
         "NAME": "cinema",
+        "TEST": {
+            "NAME": 'mytestdatabase'
+        },
         "USER": "cinema",
         "PASSWORD": "password",
     }
@@ -137,3 +140,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGOUT_REDIRECT_URL = 'film:list'
 LOGIN_REDIRECT_URL = 'film:list'
+# SESSION_COOKIE_AGE = 5 * 60
+# SESSION_SAVE_EVERY_REQUEST = True
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ]
+}

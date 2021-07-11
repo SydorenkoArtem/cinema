@@ -5,7 +5,7 @@ from django.utils.text import slugify
 class Genre(models.Model):
     """Genre model implementation"""
 
-    genre = models.CharField(max_length=255)
+    genre = models.CharField(unique=True, max_length=255)
 
     class Meta:
         verbose_name = "genre"
@@ -22,17 +22,11 @@ class Genre(models.Model):
 
         return self.genre
 
-    @property
-    def name(self):
-        """An alias to a product brand field"""
-
-        return self.genre
-
 
 class Film(models.Model):
     """Film model implementation"""
 
-    film = models.CharField(max_length=255)
+    film = models.CharField(unique=True, max_length=255)
     description = models.TextField()
     slug = models.SlugField(max_length=255, blank=True, unique=True)
     pic = models.ImageField(upload_to="static/images/film")

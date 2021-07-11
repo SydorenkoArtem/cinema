@@ -12,5 +12,8 @@
       <p>Email: {{ request.user.email }}</p>
         <p>Balance: {{ user.profile.balance}} UAH</p>
     </div>
+  <div class="row">
+      <a href="{% url "schedule:my_tickets" %}" class="list-group-item list-group-item-action">My orders</a>
+  </div>
   </div>
 {% endblock %}

@@ -17,6 +17,7 @@
               <a href="{% url "schedule:create" %}" class="nav-link">Create schedule</a>
             <a href="{% url "admin:index" %}" class="nav-link">Admin</a>
             {% else %}
+              <a href="{% url "schedule:my_tickets" %}" class="nav-link">My tickets</a>
           {% endif %}
             {% load static %}
             <a href="{% url "profile" %}" class="nav-link">{{ request.user.first_name }} {{ request.user.last_name }}</a>
