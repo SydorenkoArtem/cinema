@@ -1,7 +1,6 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from film.forms import FilmDeleteForm
 from film.models import Film
 
 

@@ -47,6 +47,8 @@ class Film(models.Model):
         return self.film
 
     def save(self, *args, **kwargs):
+        """Save object with slugify"""
+
         if not self.slug:
             self.slug = slugify(self.film)
 

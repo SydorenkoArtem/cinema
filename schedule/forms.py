@@ -50,15 +50,21 @@ class ScheduleForm(forms.ModelForm):
         start_date = self.cleaned_data['start_date']
         end_date = self.cleaned_data['end_date']
         hall = self.cleaned_data['hall']
+        price = self.cleaned_data['price']
         all_schedule = Schedule.objects.filter(hall=hall)
+        date_today = datetime.date.today()
         for schedule in all_schedule:
             if schedule.start_time <= start_time <= schedule.end_time and \
                     schedule.start_date <= start_date <= schedule.end_date or \
                     schedule.start_time <= end_time <= schedule.end_time and \
                     schedule.start_date <= end_date <= schedule.end_date:
                 raise ValidationError("This schedule book yet. Choose other time and date")
-            if start_date > end_date:
+            if start_date > end_date or start_date < date_today:
                 raise ValidationError("you have chosen the wrong dates")
+            if start_time > end_time:
+                raise ValidationError("you have chosen the wrong time")
+            if price <= 0:
+                raise ValidationError("Enter a price more then 0")
 
 
 class HallForm(forms.ModelForm):

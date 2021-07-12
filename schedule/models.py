@@ -8,7 +8,7 @@ class Hall(models.Model):
     """Hall model implementation"""
 
     hall = models.CharField(unique=True, max_length=255)
-    place = models.IntegerField(default=60)
+    place = models.PositiveIntegerField(default=60)
 
     def __str__(self):
         return self.hall
@@ -34,7 +34,7 @@ class Schedule(models.Model):
     def __str__(self):
         """Return a string version of an instance"""
 
-        return f" {self.film} {self.date_show} ({self.start_time})"
+        return f"{self.film} {self.date_show} ({self.start_time})"
 
     def get_free_places_in_hall(self):
         """Get Free places in schedule"""
