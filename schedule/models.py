@@ -1,4 +1,5 @@
 from django.db import models
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 
 from film.models import Film
@@ -67,8 +68,10 @@ class Ticket(models.Model):
     def save(self, *args, **kwargs):
         """Save total in ticket and save profile after minus total ticket"""
         self.customer.profile.balance -= self.get_total()
+        if self.customer.profile.balance < 0:
+            redirect_url = reverse_lazy("schedule:ticket")
+            return HttpResponseRedirect(redirect_url)
         self.customer.profile.save()
         self.total = self.get_total()
 
         super(Ticket, self).save(*args, **kwargs)
-

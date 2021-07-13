@@ -7,7 +7,11 @@
   <div class="card h-100">
   {% load static %}
   <div class="card h-100">
+      {% if film.pic %}
     <img src="{{ film.pic.url }}" class="card-img-top" alt="{{ film.slug }}" height="400">
+      {% else %}
+      <p></p>
+      {% endif %}
   </div>
     <div class="card-body">
       <h2 class="card-title">{{ film }}</h2>

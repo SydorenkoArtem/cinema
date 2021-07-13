@@ -10,5 +10,3 @@ def get_free_places_in_hall(schedule):
         place_count += ticket.quantity
     free_places = schedule.hall.place - place_count
     return free_places
-
-

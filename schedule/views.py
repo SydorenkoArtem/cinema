@@ -20,7 +20,8 @@ class ScheduleListView(ListView):
     def get_queryset(self):
         """Return a queryset for a list view"""
 
-        queryset = Schedule.objects.filter(date_show=datetime.datetime.today()).filter(start_time__gte=datetime.datetime.now())
+        queryset = Schedule.objects.filter(date_show=datetime.datetime.today()).filter(
+            start_time__gte=datetime.datetime.now())
 
         return queryset
 
@@ -93,8 +94,3 @@ class TicketUserView(LoginRequiredMixin, ListView):
         queryset = super(TicketUserView, self).get_queryset()
 
         return queryset.filter(customer=self.request.user)
-
-
-
-
-

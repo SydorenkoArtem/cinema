@@ -9,9 +9,14 @@ footer p { font-size:13px; color:#CCC; padding-bottom:0px; margin-bottom:8px;}
 	margin-bottom: 10px;
 	margin-left: auto;
 }
-.foote_bottom_ul_amrc li { display:inline;}
+.foote_bottom_ul_amrc li {
+    display:inline;
+}
 
-.foote_bottom_ul_amrc li a { color:#999; margin:0 12px;}
+.foote_bottom_ul_amrc li a {
+    color:#999;
+    margin:0 12px;
+}
 
 .box-element {
     box-shadow: hsl(0, 0%, 80%) 0 0 16px;
@@ -28,7 +33,6 @@ footer p { font-size:13px; color:#CCC; padding-bottom:0px; margin-bottom:8px;}
     padding-bottom: 10px;
     margin-bottom: 10px;
     border-bottom: 1px solid #ececec;
-
 }
 
 .chg-quantity {
@@ -43,6 +47,4 @@ footer p { font-size:13px; color:#CCC; padding-bottom:0px; margin-bottom:8px;}
 	display: inline-block;
 	font-weight: 700;
 	padding-right:10px;
-
-
 }

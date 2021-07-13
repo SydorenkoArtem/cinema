@@ -23,4 +23,4 @@ class TicketSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ticket
-        fields = '__all__'
+        exclude = ['total', 'customer']

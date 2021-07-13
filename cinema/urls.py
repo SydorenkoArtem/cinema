@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('film.urls')),
     path('schedule/', include('schedule.urls')),
     path('api/', include('api.urls', namespace='api')),
+    path('api-auth/', include('rest_framework.urls')),
 ]

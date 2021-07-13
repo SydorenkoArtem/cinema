@@ -6,7 +6,11 @@
       <div class="col">
   <div class="card h-100">
   {% load static %}
+      {% if film.pic %}
     <img src="{{ film.pic.url }}" class="card-img-top" alt="{{ film.slug }}">
+          {% else %}
+           <p></p>
+  {% endif %}
     <div class="card-body">
       <h5 class="card-title">{{ film }}</h5>
       <p class="card-text">{{ film.description|truncatewords:"300" }}</p>

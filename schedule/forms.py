@@ -12,7 +12,8 @@ class TicketForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(TicketForm, self).__init__(*args, **kwargs)
-        self.fields['schedule'].queryset = Schedule.objects.filter(date_show=datetime.datetime.today()).filter(start_time__gte=datetime.datetime.now())
+        self.fields['schedule'].queryset = Schedule.objects.filter(date_show=datetime.datetime.today()).filter(
+            start_time__gte=datetime.datetime.now())
 
     class Meta:
         model = Ticket
@@ -73,4 +74,3 @@ class HallForm(forms.ModelForm):
     class Meta:
         model = Hall
         fields = '__all__'
-
