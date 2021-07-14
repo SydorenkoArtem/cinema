@@ -13,7 +13,7 @@ class TicketForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(TicketForm, self).__init__(*args, **kwargs)
         self.fields['schedule'].queryset = Schedule.objects.filter(date_show=datetime.datetime.today()).filter(
-            start_time__gte=datetime.datetime.now())
+            start_time__gte=datetime.datetime.now()).order_by("start_time")
 
     class Meta:
         model = Ticket

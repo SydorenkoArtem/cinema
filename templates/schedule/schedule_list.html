@@ -21,6 +21,11 @@
           {% if request.user.is_authenticated %}
           <input type="hidden" id="schedule_id" name="schedule_id" value="{{ schedule.id }}">
           <button type="submit" class="btn mt-1 m-2" style="background-color: #808080">Buy ticket</button>
+              {% if request.user.is_staff %}
+              {% if schedule.hall.place == schedule.get_free_places_in_hall %}
+                  <a href="{% url "schedule:delete" pk=schedule.pk %}" class="btn btn-danger">Delete Schedule</a>
+                  {% endif %}
+                  {% endif %}
      {% endif %}
       </div>
       </form>

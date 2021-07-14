@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DeleteView
 
 from schedule.forms import TicketForm, ScheduleForm, HallForm
 from schedule.models import Schedule, Ticket
@@ -21,7 +21,7 @@ class ScheduleListView(ListView):
         """Return a queryset for a list view"""
 
         queryset = Schedule.objects.filter(date_show=datetime.datetime.today()).filter(
-            start_time__gte=datetime.datetime.now())
+            start_time__gte=datetime.datetime.now()).order_by("start_time")
 
         return queryset
 
@@ -55,12 +55,21 @@ class ScheduleCreateView(CreateView):
         return redirect('film:list')
 
 
+class ScheduleDeleteView(DeleteView):
+    """Schedule Delete view implementation"""
+
+    http_method_names = ["get", "post", "head", "options", "trace"]
+    model = Schedule
+    template_name = 'schedule/schedule_confirm_delete.html'
+    success_url = reverse_lazy("schedule:list")
+
+
 class HallCreateView(CreateView):
     """Hall create view implementation"""
     form_class = HallForm
     http_method_names = ['get', 'post']
     template_name = "schedule/hall_form.html"
-    success_url = "schedule:hall"
+    success_url = "/"
 
 
 class TicketCreateView(LoginRequiredMixin, CreateView):

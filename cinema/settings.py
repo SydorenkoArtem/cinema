@@ -59,7 +59,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,
+        'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -134,8 +134,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGOUT_REDIRECT_URL = 'film:list'
 LOGIN_REDIRECT_URL = 'film:list'
-SESSION_COOKIE_AGE = 5 * 60
-SESSION_SAVE_EVERY_REQUEST = True
+# SESSION_COOKIE_AGE = 5 * 60
+# SESSION_SAVE_EVERY_REQUEST = True
 
 # Django Rest Framework settings
 REST_FRAMEWORK = {

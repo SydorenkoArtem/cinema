@@ -17,5 +17,7 @@ def handle_user_post_save_signal(instance, created, **kwargs):
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(instance=None, created=False, **kwargs):
+    """Handle a user token post_save signal"""
+
     if created:
         Token.objects.create(user=instance)
